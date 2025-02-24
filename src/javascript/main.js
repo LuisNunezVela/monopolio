@@ -1,10 +1,13 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
 import { cube } from './cube.js'; // Importar el cubo
 import {tablero} from './tablero.js'
+import {casillaEsquina} from './casillas.js';
+
 // Crear la escena y la cámara
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+camera.position.z = 7;
+camera.position.y = 0;
 const lookAtTarget = new THREE.Vector3(0, 0, 0);
 camera.lookAt(lookAtTarget);
 
@@ -16,6 +19,8 @@ document.body.appendChild(renderer.domElement);
 // Agregar el cubo a la escena
 scene.add(cube);
 scene.add(tablero);
+scene.add(casillaEsquina);
+
 
 // Crear un elemento de texto para depuración
 const debugText = document.createElement('div');

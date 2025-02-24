@@ -1,0 +1,14 @@
+#lanzarDadosBtn {
+    font-size: 30px;
+    position: absolute;
+    bottom: 10px; /* Distancia desde la parte inferior */
+    left: 10px; /* Distancia desde la izquierda */
+}
+
+#resultado {
+    font-size: 30px;
+    position: absolute;
+    bottom: 10px; /* Distancia desde la parte inferior */
+    left: 300px; /* Distancia desde la izquierda */
+    color:aliceblue;
+}
