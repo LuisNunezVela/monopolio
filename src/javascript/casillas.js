@@ -23,14 +23,35 @@ export const propiedades = [
     new Propiedad("Avenida Banzer", 350, 40),
 ];
 */
+
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('/assets/img/carcel.jpg');
+const carcel = textureLoader.load('/assets/img/carcel.jpg');
+const go = textureLoader.load('/assets/img/go.jpg');
+//const parqueo texture load
+//const ve a la carcel texture load
+
 const casillaEsquinaGeometry = new THREE.PlaneGeometry(1, 1);
-const casillaMaterial = new THREE.MeshBasicMaterial({ map: texture });
-const casillaEsquina = new THREE.Mesh(casillaEsquinaGeometry, casillaMaterial);
-casillaEsquina.position.set(-3, 3, 0);
+const carcelMaterial = new THREE.MeshBasicMaterial({ map: carcel });
+const goMaterial = new THREE.MeshBasicMaterial({ map: go });
 
 
-export {casillaEsquina};
+
+const casillaEsquina1 = new THREE.Mesh(casillaEsquinaGeometry, carcelMaterial);
+const casillaEsquina2 = new THREE.Mesh(casillaEsquinaGeometry, carcelMaterial);
+const casillaEsquina3 = new THREE.Mesh(casillaEsquinaGeometry, carcelMaterial);
+const casillaEsquina4 = new THREE.Mesh(casillaEsquinaGeometry, goMaterial);
+
+casillaEsquina1.position.set(-3, 3, 0);
+casillaEsquina2.position.set(3, 3, 0);
+casillaEsquina3.position.set(3, -3, 0);
+casillaEsquina4.position.set(-3, -3, 0);
+
+const casillasEsquinasGroup = new THREE.Group();
+casillasEsquinasGroup.add(casillaEsquina1);
+casillasEsquinasGroup.add(casillaEsquina2);
+casillasEsquinasGroup.add(casillaEsquina3);
+casillasEsquinasGroup.add(casillaEsquina4);
+
+export {casillasEsquinasGroup};
 
 

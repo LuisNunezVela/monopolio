@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
 import { cube } from './cube.js'; // Importar el cubo
 import {tablero} from './tablero.js'
-import {casillaEsquina} from './casillas.js';
+import {casillasEsquinasGroup} from './casillas.js';
 
 // Crear la escena y la cámara
 const scene = new THREE.Scene();
@@ -19,7 +19,7 @@ document.body.appendChild(renderer.domElement);
 // Agregar el cubo a la escena
 scene.add(cube);
 scene.add(tablero);
-scene.add(casillaEsquina);
+scene.add(casillasEsquinasGroup);
 
 
 // Crear un elemento de texto para depuración
