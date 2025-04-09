@@ -1,14 +1,13 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
-import { cube } from './cube.js'; // Importar el cubo
 import {tablero} from './tablero.js'
-import {casillasEsquinasGroup} from './casillas.js';
+import {parentObject} from './casillas.js'
 
 // Crear la escena y la cámara
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.x = 7;
+camera.position.x = 40;
 camera.position.z = 0;
-camera.position.y = 5;
+camera.position.y = 40;
 const lookAtTarget = new THREE.Vector3(0, 0, 0);
 camera.lookAt(lookAtTarget);
 
@@ -18,10 +17,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Agregar el cubo a la escena
-scene.add(cube);
 scene.add(tablero);
-scene.add(casillasEsquinasGroup);
-
+scene.add(parentObject);
 
 // Crear un elemento de texto para depuración
 const debugText = document.createElement('div');
@@ -35,8 +32,6 @@ document.body.appendChild(debugText);
 // Animación
 function animate() {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
     renderer.render(scene, camera);
     // Actualizar debug text
     debugText.innerHTML = 
