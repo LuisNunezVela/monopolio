@@ -47,9 +47,9 @@ let x = 0;
 let y = 0
 
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 15; i++) {
     const casilla = new THREE.Mesh(geometry_casilla, material);
-    casilla.position.set(20, 0.01, 28);
+    casilla.position.set(-20+ i * 5.5, 0.01, 28 );
     casilla.rotation.x = (rotacionCorregida);
 
     casillas.push(casilla);
@@ -59,5 +59,4 @@ for (let i = 0; i < 10; i++) {
 
 export {tablero};
 export {tableroSize};
-
 export { casillas, casillasGroup };
