@@ -28,14 +28,45 @@ debugText.style.color = 'white';
 debugText.style.fontFamily = 'Arial';
 document.body.appendChild(debugText);
 
+//token
+// Crear un token (pieza de jugador)
+const tokenGeometry = new THREE.SphereGeometry(2, 32, 32); // Radio 2
+const tokenMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Rojo
+const token = new THREE.Mesh(tokenGeometry, tokenMaterial);
+scene.add(token);
+
+// Variables para movimiento
+let currentCasillaIndex = 0;
+let moveSpeed = 0.1; // Velocidad de movimiento
+let targetPosition = casillasGroup.children[currentCasillaIndex].position.clone(); // Posición objetivo inicial
+
+
+
+
 // Animación
 function animate() {
     requestAnimationFrame(animate);
+
+    // Movimiento del token hacia la casilla objetivo
+    const direction = new THREE.Vector3().subVectors(targetPosition, token.position);
+    const distance = direction.length();
+
+    if (distance > 0.1) {
+        direction.normalize();
+        token.position.add(direction.multiplyScalar(moveSpeed));
+    } else {
+        // Llegó a la casilla, pasar a la siguiente
+        currentCasillaIndex = (currentCasillaIndex + 1) % casillasGroup.children.length;
+        targetPosition = casillasGroup.children[currentCasillaIndex].position.clone();
+    }
+
     renderer.render(scene, camera);
+
     // Actualizar debug text
     debugText.innerHTML = 
         `Camera position: ${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}<br>` +
-        `Camera look at: ${lookAtTarget.x.toFixed(2)}, ${lookAtTarget.y.toFixed(2)}, ${lookAtTarget.z.toFixed(2)}`;
+        `Camera look at: ${lookAtTarget.x.toFixed(2)}, ${lookAtTarget.y.toFixed(2)}, ${lookAtTarget.z.toFixed(2)}<br>` +
+        `Token casilla: ${currentCasillaIndex}`;
 }
 
 animate();
