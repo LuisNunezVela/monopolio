@@ -129,11 +129,9 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
         }
         casilla.rotation.z = Math.PI / 2;
     }
-
     casillas.push(casilla);
     casillasGroup.add(casilla);
 }
-
 export { tablero };
 export { tableroSize };
 export { casillas, casillasGroup };
