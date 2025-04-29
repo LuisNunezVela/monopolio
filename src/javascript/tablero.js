@@ -25,22 +25,22 @@ const sideWidth = 5;
 const sideHeight = 10;
 const espacio = 1.0;
 const numCasillasxlado = 11;
-const tableroSize = 50;
+const tableroSize = 45;
 
-// Geometrías base
+// Geometría del tablero
 const tableroGeometry = new THREE.PlaneGeometry(tableroSize, tableroSize);
-const casillaGeometry = new THREE.PlaneGeometry(sideWidth, sideHeight);
-
 const tablero = new THREE.Mesh(tableroGeometry, verde);
 tablero.rotation.x = rotacionCorregida;
 tablero.position.set(0, 0, 0);
 
+// Generación de casillas
 for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
     let casilla;
     let j;
 
-    if (i % 10 === 0) {
-        // Esquinas cuadradas
+    const isCorner = i % 10 === 0;
+
+    if (isCorner) {
         casilla = new THREE.Mesh(new THREE.PlaneGeometry(sideHeight, sideHeight), casillaMaterial);
     } else {
         casilla = new THREE.Mesh(new THREE.PlaneGeometry(sideWidth, sideHeight), casillaMaterial);
@@ -57,9 +57,13 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
                 (tableroSize / 2) + (sideHeight / 2)
             );
         } else {
-            const offsetX = (tableroSize / 2) + (sideHeight / 2) - sideHeight - (i - 1) * sideWidth * espacio;
-            const offsetZ = (tableroSize / 2) + (sideHeight / 2);
-            casilla.position.set(offsetX, 0.01, offsetZ);
+            const offsetX =
+                (tableroSize / 2) +
+                (sideHeight / 2) -
+                sideHeight +
+                (sideHeight - sideWidth) / 2 -
+                (i - 1) * sideWidth * espacio;
+            casilla.position.set(offsetX, 0.01, (tableroSize / 2) + (sideHeight / 2));
         }
     }
 
@@ -73,7 +77,12 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
                 (tableroSize / 2) + (sideHeight / 2)
             );
         } else {
-            const offsetZ = (tableroSize / 2) + (sideHeight / 2) - sideHeight - (j - 1) * sideWidth * espacio;
+            const offsetZ =
+                (tableroSize / 2) +
+                (sideHeight / 2) -
+                sideHeight +
+                (sideHeight - sideWidth) / 2 -
+                (j - 1) * sideWidth * espacio;
             casilla.position.set(-(tableroSize / 2) - (sideHeight / 2), 0.01, offsetZ);
         }
         casilla.rotation.z = -Math.PI / 2;
@@ -89,7 +98,12 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
                 -(tableroSize / 2) - (sideHeight / 2)
             );
         } else {
-            const offsetX = -(tableroSize / 2) - (sideHeight / 2) + sideHeight + (j - 1) * sideWidth * espacio;
+            const offsetX =
+                -(tableroSize / 2) -
+                (sideHeight / 2) +
+                sideHeight -
+                (sideHeight - sideWidth) / 2 +
+                (j - 1) * sideWidth * espacio;
             casilla.position.set(offsetX, 0.01, -(tableroSize / 2) - (sideHeight / 2));
         }
         casilla.rotation.x = Math.PI / 2;
@@ -105,7 +119,12 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
                 -(tableroSize / 2) - (sideHeight / 2)
             );
         } else {
-            const offsetZ = -(tableroSize / 2) - (sideHeight / 2) + sideHeight + (j - 1) * sideWidth * espacio;
+            const offsetZ =
+                -(tableroSize / 2) -
+                (sideHeight / 2) +
+                sideHeight -
+                (sideHeight - sideWidth) / 2 +
+                (j - 1) * sideWidth * espacio;
             casilla.position.set((tableroSize / 2) + (sideHeight / 2), 0.01, offsetZ);
         }
         casilla.rotation.z = Math.PI / 2;
