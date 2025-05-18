@@ -1,13 +1,11 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
-
+import Jolt from 'https://www.unpkg.com/jolt-physics/dist/jolt-physics.wasm-compat.js';
 
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();
 let dadoModelo = null;
-
-
 
 loader.load(
 	'/assets/models/Dado.glb',function ( gltf ) {
@@ -76,8 +74,9 @@ function animate() {
   
 
   if (dadoModelo) {
-        dadoModelo.rotation.x += 0.01;
+        dadoModelo.rotation.x += 0.00;
         dadoModelo.rotation.y += 0.01;
+        dadoModelo.rotation.z += 0.0;
     }
   
 
