@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monopolio</title>
-    <link rel="stylesheet" href="/src/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monopolio</title>
+  <link rel="mainMenu" href="/src/css/mainMenu.css" />
+  <script type="module" src="/src/javascript/mainMenu.js" defer></script>
 </head>
 <body>
-    <div class="menu">
-      <h1>Monopolio</h1>
-      <a href="juego.html" class="boton">Iniciar Partida</a>
-      <a href="" class="boton">Opciones</a>
-      <a href="" class="boton">Salir</a>
-    </div>
-  </body>
+  <!-- Pantalla inicial con botón de entrada -->
+  <div id="start-screen" class="pantalla-inicio">
+    <button id="startBtn" class="boton">Entrar al Menú</button>
+  </div>
+
+  <!-- Menú principal oculto al inicio -->
+  <div id="main-menu" class="menu" style="display: none;">
+    <h1>Monopolio</h1>
+    <a href="juego.html" class="boton">Iniciar Partida</a>
+    <a href="#" class="boton">Opciones</a>
+    <a href="#" class="boton">Salir</a>
+  </div>
+</body>
 </html>
