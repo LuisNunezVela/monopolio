@@ -1,0 +1,24 @@
+/* Eliminar márgenes por defecto */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* En tu archivo CSS */
+canvas {
+    background: linear-gradient(to bottom, #1e3c72, #2a5298); /* Ejemplo de degradado */
+    /* O color sólido: */
+    background-color: #87CEEB; /* Celeste */
+    
+    display: block; /* Elimina espacios blancos alrededor */
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Si tienes elementos de UI superpuestos */
+body {
+    margin: 0;
+    overflow: hidden; /* Elimina barras de scroll */
+}
