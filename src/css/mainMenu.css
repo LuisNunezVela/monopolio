@@ -22,3 +22,84 @@ body {
     margin: 0;
     overflow: hidden; /* Elimina barras de scroll */
 }
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Pantalla de inicio */
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  flex-direction: column;
+  color: white;
+}
+
+#start-screen button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+#start-screen button:hover {
+  background-color: #45a049;
+}
+
+/* Menú principal (oculto al inicio, pero con estilo de centrado listo) */
+#main-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px;
+
+}
+
+#main-menu h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.boton {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+  background-color: #2980b9;
+}
