@@ -1,7 +1,6 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
-import Jolt from 'https://www.unpkg.com/jolt-physics/dist/jolt-physics.wasm-compat.js';
 
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();
@@ -42,7 +41,6 @@ renderer.setClearColor(0x87CEEB); // Celeste en hexadecimal THREE.js
 
 
 // O mejor aún, usa OrbitControls para mover la cámara
-
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
