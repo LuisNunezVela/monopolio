@@ -69,11 +69,10 @@ body, html {
 
 /* Menú principal (oculto al inicio, pero con estilo de centrado listo) */
 #main-menu {
-  display: none;
-  position: fixed;
+
+  position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
