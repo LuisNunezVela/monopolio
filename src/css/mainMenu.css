@@ -4,13 +4,14 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 /* En tu archivo CSS */
 canvas {
     background: linear-gradient(to bottom, #1e3c72, #2a5298); /* Ejemplo de degradado */
     /* O color sólido: */
-    background-color: #87CEEB; /* Celeste */
+    /*background-color: #87CEEB;  Celeste */
     
     display: block; /* Elimina espacios blancos alrededor */
     width: 100vw;

@@ -3,10 +3,14 @@ import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loa
 import {OrbitControls} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
 import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/+esm';
 
+// UI Elements
+const startBtn = document.getElementById("startBtn");
+const startScreen = document.getElementById("start-screen");
+const mainMenu = document.getElementById("main-menu");
+
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();
 let dadoModelo = null;
-
 let spawnInterval = null;
 
 // Añade estas variables globales
@@ -61,16 +65,28 @@ function spawnDice() {
         mesh: diceMesh,
         body: diceBody
     });
+
+    const diceData = {
+        mesh: diceMesh,
+        body: diceBody
+    };
+
+    // 🧹 Eliminar el dado después de 3 segundos
+    setTimeout(() => {
+        scene.remove(diceMesh);
+        world.removeBody(diceBody);
+        const index = diceArray.indexOf(diceData);
+        if (index !== -1) diceArray.splice(index, 1);
+    }, 2500);
 }
 
 // Inicialización
 initPhysics();
 
-
 loader.load(
 	'/assets/models/Dado.glb',function ( gltf ) {
     dadoModelo = gltf.scene
- //scene.add(dadoModelo);
+ scene.add(dadoModelo);
     
     // Añade estos logs para debuggear
     console.log("Modelo cargado:", dadoModelo);
@@ -101,7 +117,7 @@ renderer.setClearColor(0x87CEEB); // Celeste en hexadecimal THREE.js
 //renderer.setClearAlpha(0); // Hacer el fondo transparente para usar CSS
 
 
-// O mejor aún, usa OrbitControls para mover la cámara
+//  mejor aún, usa OrbitControls para mover la cámara
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
@@ -130,11 +146,8 @@ audioLoader.load("/assets/audio/Main-Menu.mp3", function (buffer) {
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
-  
-
   // Actualizar física
     world.step(fixedTimeStep);
-    
     // Sincronizar modelos 3D con cuerpos físicos
     diceArray.forEach(dice => {
         dice.mesh.position.copy(dice.body.position);
@@ -144,11 +157,6 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
-
-// UI Elements
-const startBtn = document.getElementById("startBtn");
-const startScreen = document.getElementById("start-screen");
-const mainMenu = document.getElementById("main-menu");
 
 startBtn.addEventListener("click", () => {
   // Reproducir música
@@ -167,7 +175,6 @@ if (!spawnInterval) {
     }
   // Ocultar pantalla de inicio
   startScreen.style.display = "none";
-
   // Mostrar menú principal
   mainMenu.style.display = "flex";
 });
