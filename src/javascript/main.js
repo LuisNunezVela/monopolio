@@ -1,4 +1,5 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
 import {tablero} from './tablero.js'
 import {casillasGroup} from './tablero.js'
 
@@ -14,6 +15,9 @@ camera.lookAt(lookAtTarget);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
 
 // Agregar el cubo a la escena
 scene.add(tablero);
@@ -41,12 +45,13 @@ let moveSpeed = 0.1; // Velocidad de movimiento
 let targetPosition = casillasGroup.children[currentCasillaIndex].position.clone(); // Posición objetivo inicial
 
 
-
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
 
 // Animación
 function animate() {
     requestAnimationFrame(animate);
-
+    controls.update();
     // Movimiento del token hacia la casilla objetivo
     const direction = new THREE.Vector3().subVectors(targetPosition, token.position);
     const distance = direction.length();
@@ -68,5 +73,12 @@ function animate() {
         `Camera look at: ${lookAtTarget.x.toFixed(2)}, ${lookAtTarget.y.toFixed(2)}, ${lookAtTarget.z.toFixed(2)}<br>` +
         `Token casilla: ${currentCasillaIndex}`;
 }
+
+// Optional: Responsive canvas
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
 animate();
