@@ -3,16 +3,23 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.mo
 const textureLoader = new THREE.TextureLoader();
 
 const rotacionCorregida = -Math.PI / 2;
+
+// Load the main board texture
 const tablero_txt = textureLoader.load('/assets/img/monopolio.jpg');
-const casilla_txt = textureLoader.load('/assets/img/casilla.png');
+
+// ✅ Array of texture paths for casillas (add more here)
+const casillaTexturePaths = [
+    '/assets/img/casilla-0.png',
+    '/assets/img/casilla-1.png',
+
+    // Add more paths as needed
+];
+
+// ✅ Load all casilla textures
+const casillaTextures = casillaTexturePaths.map(path => textureLoader.load(path));
 
 const tableroMaterial = new THREE.MeshBasicMaterial({
     map: tablero_txt,
-    side: THREE.DoubleSide
-});
-
-const casillaMaterial = new THREE.MeshBasicMaterial({
-    map: casilla_txt,
     side: THREE.DoubleSide
 });
 
@@ -40,6 +47,10 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
 
     const isCorner = i % 10 === 0;
 
+    // ✅ Assign texture by index
+    const texture = casillaTextures[i % casillaTextures.length];
+    const casillaMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+
     if (isCorner) {
         casilla = new THREE.Mesh(new THREE.PlaneGeometry(sideHeight, sideHeight), casillaMaterial);
     } else {
@@ -59,9 +70,9 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
         } else {
             const offsetX =
                 (tableroSize / 2) +
-                (sideHeight / 2) -
-                sideHeight +
-                (sideHeight - sideWidth) / 2 -
+                (sideHeight / 2) - 
+                sideHeight + 
+                (sideHeight - sideWidth) / 2 - 
                 (i - 1) * sideWidth * espacio;
             casilla.position.set(offsetX, 0.01, (tableroSize / 2) + (sideHeight / 2));
         }
@@ -129,9 +140,11 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
         }
         casilla.rotation.z = Math.PI / 2;
     }
+
     casillas.push(casilla);
     casillasGroup.add(casilla);
 }
+
 export { tablero };
 export { tableroSize };
 export { casillas, casillasGroup };

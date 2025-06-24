@@ -1,11 +1,13 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
 import {tablero} from './tablero.js'
 import {casillasGroup} from './tablero.js'
 
 // Crear la escena y la cámara
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const loader = new GLTFLoader();
 camera.position.set(0,80,0);
 
 const lookAtTarget = new THREE.Vector3(0, 0, 0);
@@ -15,6 +17,16 @@ camera.lookAt(lookAtTarget);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// Luz ambiental (iluminación suave general)
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+
+// Luz direccional (como el sol)
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+directionalLight.position.set(50, 100, 50);
+scene.add(directionalLight);
+
 
 // OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -32,12 +44,30 @@ debugText.style.color = 'white';
 debugText.style.fontFamily = 'Arial';
 document.body.appendChild(debugText);
 
+let somoToken = null;
 //token
-// Crear un token (pieza de jugador)
-const tokenGeometry = new THREE.SphereGeometry(2, 32, 32); // Radio 2
-const tokenMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Rojo
-const token = new THREE.Mesh(tokenGeometry, tokenMaterial);
-scene.add(token);
+loader.load(
+    '/assets/models/Somo_Token.glb',function ( gltf ) {
+    somoToken = gltf.scene
+ scene.add(somoToken);
+    
+    // Ajusta la escala si es necesario
+    somoToken.scale.set(1, 1, 1); // Ejemplo: escalar a 100%
+    
+    // Centrar el modelo
+    const box = new THREE.Box3().setFromObject(somoToken);
+    const center = box.getCenter(new THREE.Vector3());
+    somoToken.position.sub(center);
+
+    // Cambiar material a gris
+        somoToken.traverse((child) => {
+            if (child.isMesh) {
+                child.material = new THREE.MeshStandardMaterial({ color: 0x888888 });
+            }
+        });
+    }
+);
+
 
 // Variables para movimiento
 let currentCasillaIndex = 0;
@@ -52,17 +82,21 @@ scene.add(axesHelper);
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
-    // Movimiento del token hacia la casilla objetivo
-    const direction = new THREE.Vector3().subVectors(targetPosition, token.position);
-    const distance = direction.length();
 
-    if (distance > 0.1) {
-        direction.normalize();
-        token.position.add(direction.multiplyScalar(moveSpeed));
-    } else {
-        // Llegó a la casilla, pasar a la siguiente
-        currentCasillaIndex = (currentCasillaIndex + 1) % casillasGroup.children.length;
-        targetPosition = casillasGroup.children[currentCasillaIndex].position.clone();
+    // Solo mover el token si el modelo ya está cargado
+    if (somoToken) {
+        // Movimiento del token hacia la casilla objetivo
+        const direction = new THREE.Vector3().subVectors(targetPosition, somoToken.position);
+        const distance = direction.length();
+
+        if (distance > 0.1) {
+            direction.normalize();
+            somoToken.position.add(direction.multiplyScalar(moveSpeed));
+        } else {
+            // Llegó a la casilla, pasar a la siguiente
+            currentCasillaIndex = (currentCasillaIndex + 1) % casillasGroup.children.length;
+            targetPosition = casillasGroup.children[currentCasillaIndex].position.clone();
+        }
     }
 
     renderer.render(scene, camera);
