@@ -4,6 +4,12 @@ import {GLTFLoader} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loa
 import {tablero} from './tablero.js'
 import {casillasGroup} from './tablero.js'
 
+window.moverToken = function(pasos) {
+    stepsToMove += pasos; // acumulativo por si llamas varias veces
+};
+
+let stepsToMove = 0; // NEW: how many spaces to move (set by dado.js)
+
 // Crear la escena y la cámara
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -85,19 +91,19 @@ function animate() {
 
     // Solo mover el token si el modelo ya está cargado
     if (somoToken) {
-        // Movimiento del token hacia la casilla objetivo
-        const direction = new THREE.Vector3().subVectors(targetPosition, somoToken.position);
-        const distance = direction.length();
+    const direction = new THREE.Vector3().subVectors(targetPosition, somoToken.position);
+    const distance = direction.length();
 
-        if (distance > 0.1) {
-            direction.normalize();
-            somoToken.position.add(direction.multiplyScalar(moveSpeed));
-        } else {
-            // Llegó a la casilla, pasar a la siguiente
-            currentCasillaIndex = (currentCasillaIndex + 1) % casillasGroup.children.length;
-            targetPosition = casillasGroup.children[currentCasillaIndex].position.clone();
-        }
+    if (distance > 0.1) {
+        direction.normalize();
+        somoToken.position.add(direction.multiplyScalar(moveSpeed));
+    } else if (stepsToMove > 0) {
+        // Llegó a la casilla y quedan pasos
+        currentCasillaIndex = (currentCasillaIndex + 1) % casillasGroup.children.length;
+        targetPosition = casillasGroup.children[currentCasillaIndex].position.clone();
+        stepsToMove--; // Disminuir los pasos restantes
     }
+}
 
     renderer.render(scene, camera);
 
@@ -114,5 +120,18 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+// Create a <p> element
+const text = document.createElement('text');
+text.innerHTML = 'prueba de texto encima del canvas';
 
+// Style it so it's visible over the canvas
+text.style.position = 'absolute';
+text.style.top = '10rem';
+text.style.left = '10rem';
+text.style.color = 'white';
+text.style.fontSize = '20px';
+text.style.zIndex = '10';
+
+// Add it to the body
+document.body.appendChild(text);
 animate();

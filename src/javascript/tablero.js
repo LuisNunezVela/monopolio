@@ -117,7 +117,7 @@ for (let i = 0; i < numCasillasxlado * 4 - 4; i++) {
                 (j - 1) * sideWidth * espacio;
             casilla.position.set(offsetX, 0.01, -(tableroSize / 2) - (sideHeight / 2));
         }
-        casilla.rotation.x = Math.PI / 2;
+        casilla.rotation.z = Math.PI;
     }
 
     // CUARTO LADO - izquierda (de abajo hacia arriba)
