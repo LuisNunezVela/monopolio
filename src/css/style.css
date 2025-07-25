@@ -1,57 +1,57 @@
 body {
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #111; /* Ejemplo de fondo */
-  }
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111; /* Ejemplo de fondo */
+}
 
+.boton {
+  display: inline-block;
+  font-size: 24px;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-  .boton {
-    display: inline-block;
-    font-size: 24px;
-    padding: 10px 20px;
-    text-decoration: none;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
 
-  .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-
-
-  button {
-    font-size: 24px;
-    padding: 10px 20px;
-  }
+button {
+  font-size: 24px;
+  padding: 10px 20px;
+}
 
 /* Menu Principal*/
 #iniciarPartidaBtn {
-    font-size: 30px;
-    padding: 10px 20px;
+  font-size: 30px;
+  padding: 10px 20px;
 }
 
-
-
 #lanzarDadosBtn {
-    font-size: 30px;
-    position: absolute;
-    bottom: 10px; /* Distancia desde la parte inferior */
-    left: 10px; /* Distancia desde la izquierda */
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px; /* Distancia desde la parte inferior */
+  left: 10px; /* Distancia desde la izquierda */
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
 }
 
 #resultado {
-    font-size: 30px;
-    position: absolute;
-    bottom: 10px; /* Distancia desde la parte inferior */
-    left: 300px; /* Distancia desde la izquierda */
-    color:aliceblue;
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px; /* Distancia desde la parte inferior */
+  left: 300px; /* Distancia desde la izquierda */
+  color: aliceblue;
 }
